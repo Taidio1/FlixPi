@@ -1,0 +1,29 @@
+{
+  "name": "flixpi-monorepo",
+  "version": "1.0.0",
+  "description": "FlixPi - Netflix Clone with React, Express, Supabase & Google Drive",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "dev:test": "concurrently \"npm run server:dev:test\" \"npm run client:dev\"",
+    "prod": "concurrently \"npm run server:prod\" \"npm run client:dev\"",
+    "client:dev": "cd client && npm run dev",
+    "server:dev": "cd server && npm run dev",
+    "server:dev:test": "cd server && npm run dev:test",
+    "server:prod": "cd server && npm run prod",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "build:client": "cd client && npm run build",
+    "start:server": "cd server && npm start"
+  },
+  "keywords": ["netflix", "streaming", "react", "express", "supabase"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+

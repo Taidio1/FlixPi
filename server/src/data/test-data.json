@@ -1,0 +1,165 @@
+{
+  "content": [
+    {
+      "id": "movie-1",
+      "title": "Matrix",
+      "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+      "year": 1999,
+      "duration_minutes": 136,
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L21yb2ZpbGVfaW1hZ2U.jpeg",
+      "google_drive_file_id": "test-movie-1-drive-id",
+      "subtitle_file_id": null,
+      "genres": ["action", "sci-fi", "thriller"],
+      "content_type": "movie",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "movie-2",
+      "title": "Inception",
+      "description": "A skilled thief is given a chance at redemption by stealing secrets from the subconscious of targets during the dream state.",
+      "year": 2010,
+      "duration_minutes": 148,
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg",
+      "google_drive_file_id": "test-movie-2-drive-id",
+      "subtitle_file_id": null,
+      "genres": ["action", "sci-fi", "thriller"],
+      "content_type": "movie",
+      "created_at": "2024-01-02T00:00:00Z",
+      "updated_at": "2024-01-02T00:00:00Z"
+    },
+    {
+      "id": "movie-3",
+      "title": "Pulp Fiction",
+      "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+      "year": 1994,
+      "duration_minutes": 154,
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3Yz5NTljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
+      "google_drive_file_id": "test-movie-3-drive-id",
+      "subtitle_file_id": null,
+      "genres": ["crime", "thriller", "drama"],
+      "content_type": "movie",
+      "created_at": "2024-01-03T00:00:00Z",
+      "updated_at": "2024-01-03T00:00:00Z"
+    },
+    {
+      "id": "series-1",
+      "title": "Breaking Bad",
+      "description": "A high school chemistry teacher turned methamphetamine manufacturer partners with a former student to secure his family's future.",
+      "year": 2008,
+      "duration_minutes": 49,
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BMTJiMzgwZTktYzZhZC00YzhhLWEzZDUtMGM2NTE4MzQ4NGFmXkEyXkFqcGdeQW1pYnJ5YW50._V1_.jpg",
+      "google_drive_file_id": null,
+      "subtitle_file_id": null,
+      "genres": ["crime", "drama", "thriller"],
+      "content_type": "series",
+      "created_at": "2024-01-04T00:00:00Z",
+      "updated_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "series-2",
+      "title": "Game of Thrones",
+      "description": "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.",
+      "year": 2011,
+      "duration_minutes": 60,
+      "poster_url": "https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg",
+      "google_drive_file_id": null,
+      "subtitle_file_id": null,
+      "genres": ["fantasy", "drama", "action"],
+      "content_type": "series",
+      "created_at": "2024-01-05T00:00:00Z",
+      "updated_at": "2024-01-05T00:00:00Z"
+    }
+  ],
+  "seasons": [
+    {
+      "id": "season-1-1",
+      "content_id": "series-1",
+      "season_number": 1,
+      "title": "Season 1",
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "season-1-2",
+      "content_id": "series-1",
+      "season_number": 2,
+      "title": "Season 2",
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "season-2-1",
+      "content_id": "series-2",
+      "season_number": 1,
+      "title": "Season 1",
+      "created_at": "2024-01-05T00:00:00Z"
+    }
+  ],
+  "episodes": [
+    {
+      "id": "episode-1-1-1",
+      "season_id": "season-1-1",
+      "episode_number": 1,
+      "title": "Pilot",
+      "description": "Diagnosed with terminal lung cancer, chemistry teacher Walter White teams up with former student Jesse Pinkman to cook and sell crystal meth.",
+      "duration_minutes": 58,
+      "google_drive_file_id": "test-episode-1-1-1",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "episode-1-1-2",
+      "season_id": "season-1-1",
+      "episode_number": 2,
+      "title": "Cat's in the Bag...",
+      "description": "Walter and Jesse attempt to tie up loose ends. The desperate situation gets more complicated with the flip of a coin. Walter's wife, Skyler, becomes suspicious of his strange behavior.",
+      "duration_minutes": 48,
+      "google_drive_file_id": "test-episode-1-1-2",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "episode-1-1-3",
+      "season_id": "season-1-1",
+      "episode_number": 3,
+      "title": "...And the Bag's in the River",
+      "description": "Walter and Jesse are suspicious of the man Jesse killed. Skyler presses Walter to find out what's wrong.",
+      "duration_minutes": 47,
+      "google_drive_file_id": "test-episode-1-1-3",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "episode-1-2-1",
+      "season_id": "season-1-2",
+      "episode_number": 1,
+      "title": "Seven Thirty-Seven",
+      "description": "Season 2 premiere. Walter and Jesse deal with the aftermath of Jane's death.",
+      "duration_minutes": 46,
+      "google_drive_file_id": "test-episode-1-2-1",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-04T00:00:00Z"
+    },
+    {
+      "id": "episode-2-1-1",
+      "season_id": "season-2-1",
+      "episode_number": 1,
+      "title": "Winter Is Coming",
+      "description": "Ned Stark becomes the Hand of the King and tries to find out who killed the previous Hand, Jon Arryn.",
+      "duration_minutes": 62,
+      "google_drive_file_id": "test-episode-2-1-1",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-05T00:00:00Z"
+    },
+    {
+      "id": "episode-2-1-2",
+      "season_id": "season-2-1",
+      "episode_number": 2,
+      "title": "The Kingsroad",
+      "description": "While Bran recovers from his fall, Ned takes only his daughters to King's Landing.",
+      "duration_minutes": 56,
+      "google_drive_file_id": "test-episode-2-1-2",
+      "subtitle_file_id": null,
+      "created_at": "2024-01-05T00:00:00Z"
+    }
+  ]
+}
