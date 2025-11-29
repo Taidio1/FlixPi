@@ -16,7 +16,7 @@ const predefinedCategories = [
   "TV Series",
   "Action",
   "Akcja", // Polski
-  "Drama", 
+  "Drama",
   "Dramat", // Polski
   "Comedy",
   "Komedia", // Polski
@@ -39,7 +39,7 @@ const Home = () => {
   const { movies, loading, loadMovies } = useMovies();
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [watchlist, setWatchlist] = useState([]);
@@ -59,13 +59,13 @@ const Home = () => {
       navigate('/profiles');
       return;
     }
-    
+
     // Zawsze reload filmów przy montowaniu komponentu
     // To zapewnia odświeżenie po powrocie z Player
     console.log('[Home] Loading movies and watchlist');
     loadMovies();
     loadWatchlist();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
   useEffect(() => {
@@ -75,23 +75,24 @@ const Home = () => {
       const allCategories = [...new Set(movies.map(m => m.category).filter(Boolean))];
       console.log('🏷️ Available categories in DB:', allCategories);
       console.log('🎯 Categories we are looking for:', predefinedCategories);
-      
+
       // Sprawdź ile filmów pasuje do każdej kategorii
       predefinedCategories.forEach(cat => {
         const count = movies.filter(m => {
           if (cat === "Trending") {
-            return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending';
+            return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending' || m.isTrending;
           }
           if (cat === "New Releases") {
             return m.year && parseInt(m.year) >= 2024;
           }
           if (cat === "All Movies") {
-            return m.content_type === 'movie' || m.type === 'movie' || !m.content_type;
+            return true; // Show everything in All Movies
           }
           if (cat === "TV Series") {
             return m.content_type === 'series' || m.type === 'series';
           }
-          return m.category === cat;
+          // Check category OR genres
+          return m.category === cat || (m.genres && m.genres.includes(cat));
         }).length;
         console.log(`  ${cat}: ${count} movies`);
       });
@@ -99,36 +100,36 @@ const Home = () => {
   }, [movies]);
 
   // Featured movies dla hero banner - jak w StreamAppUI (isFeatured === 1)
-  let featuredMovies = movies.filter((m) => 
-    m.isFeatured === 1 || 
-    m.isTrending || 
+  let featuredMovies = movies.filter((m) =>
+    m.isFeatured === 1 ||
+    m.isTrending ||
     (m.rating && parseFloat(m.rating) >= 4.5)
   ).slice(0, 5);
-  
+
   // Fallback: jeśli brak featured, użyj pierwszych 5 filmów
   if (featuredMovies.length === 0 && movies.length > 0) {
     featuredMovies = movies.slice(0, 5);
     console.log('⚠️ No featured movies found, using first 5 movies');
   }
-  
+
   // Dynamiczne kategorie - użyj kategorii z bazy danych + specjalne kategorie
-  const dbCategories = [...new Set(movies.map(m => m.category).filter(Boolean))];
+  const dbCategories = [...new Set(movies.flatMap(m => m.genres || []).concat(movies.map(m => m.category).filter(Boolean)))];
   const allCategories = [
     ...predefinedCategories.filter(cat => {
       // Sprawdź czy kategoria ma jakieś filmy
       const hasMovies = movies.some(m => {
-        if (cat === "Trending") return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending';
+        if (cat === "Trending") return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending' || m.isTrending;
         if (cat === "New Releases") return m.year && parseInt(m.year) >= 2024;
-        if (cat === "All Movies") return m.content_type === 'movie' || m.type === 'movie' || !m.content_type;
+        if (cat === "All Movies") return true;
         if (cat === "TV Series") return m.content_type === 'series' || m.type === 'series';
-        return m.category === cat;
+        return m.category === cat || (m.genres && m.genres.includes(cat));
       });
       return hasMovies;
     }),
     // Dodaj kategorie z bazy, których nie ma w predefinedCategories
     ...dbCategories.filter(cat => !predefinedCategories.includes(cat))
   ];
-  
+
   useEffect(() => {
     console.log('🎬 Featured movies:', featuredMovies.length, featuredMovies.map(m => m.title));
     console.log('📋 All categories to display:', allCategories);
@@ -139,7 +140,7 @@ const Home = () => {
       title: "Now Playing",
       description: movie.title,
     });
-    
+
     if (movie.content_type === 'series' || movie.type === 'series') {
       navigate(`/series/${movie.id}`);
     } else {
@@ -198,7 +199,7 @@ const Home = () => {
 
   if (!movies || movies.length === 0) {
     return (
-      <div className="flex items-center justify-center" style={{minHeight: 'calc(100vh - 4rem)'}}>
+      <div className="flex items-center justify-center" style={{ minHeight: 'calc(100vh - 4rem)' }}>
         <div className="text-center">
           <p className="text-muted-foreground text-xl mb-4">No movies found</p>
           <p className="text-muted-foreground">Please check if backend is running</p>
@@ -219,40 +220,40 @@ const Home = () => {
       {/* Carousels - dokładnie jak w StreamAppUI */}
       <div className="pt-6">
         {allCategories.map((category) => {
-            // Filtrowanie - dokładnie jak w StreamAppUI
-            const categoryMovies = movies.filter((m) => {
-              try {
-                if (category === "Trending") {
-                  return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending';
-                }
-                if (category === "New Releases") {
-                  return m.year && parseInt(m.year) >= 2024;
-                }
-                if (category === "All Movies") {
-                  return m.content_type === 'movie' || m.type === 'movie' || !m.content_type;
-                }
-                if (category === "TV Series") {
-                  return m.content_type === 'series' || m.type === 'series';
-                }
-                return m.category === category;
-              } catch (e) {
-                console.error('Error filtering movie:', e);
-                return false;
+          // Filtrowanie - dokładnie jak w StreamAppUI
+          const categoryMovies = movies.filter((m) => {
+            try {
+              if (category === "Trending") {
+                return (m.rating && parseFloat(m.rating) >= 4.5) || m.category === 'Trending' || m.isTrending;
               }
-            });
+              if (category === "New Releases") {
+                return m.year && parseInt(m.year) >= 2024;
+              }
+              if (category === "All Movies") {
+                return true;
+              }
+              if (category === "TV Series") {
+                return m.content_type === 'series' || m.type === 'series';
+              }
+              return m.category === category || (m.genres && m.genres.includes(category));
+            } catch (e) {
+              console.error('Error filtering movie:', e);
+              return false;
+            }
+          });
 
-            if (categoryMovies.length === 0) return null;
+          if (categoryMovies.length === 0) return null;
 
-            return (
-              <MovieCarousel
-                key={category}
-                title={category}
-                movies={categoryMovies}
-                onPlay={handlePlay}
-                onShowDetails={handleShowDetails}
-              />
-            );
-          })}
+          return (
+            <MovieCarousel
+              key={category}
+              title={category}
+              movies={categoryMovies}
+              onPlay={handlePlay}
+              onShowDetails={handleShowDetails}
+            />
+          );
+        })}
       </div>
 
       <MovieDetailModal

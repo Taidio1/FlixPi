@@ -7,7 +7,7 @@ export const getUserWatchlist = async (req, res) => {
     // Fetch user's watchlist
     const { data: watchlist, error } = await supabase
       .from('watchlist')
-      .select('*, movies(*)')
+      .select('*, content(*)')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
@@ -26,24 +26,24 @@ export const getUserWatchlist = async (req, res) => {
 export const addToWatchlist = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { movie_id } = req.body;
+    const { content_id } = req.body;
 
     // Check if already in watchlist
     const { data: existing } = await supabase
       .from('watchlist')
       .select('*')
       .eq('user_id', userId)
-      .eq('movie_id', movie_id)
+      .eq('content_id', content_id)
       .single();
 
     if (existing) {
-      return res.status(400).json({ error: 'Movie already in watchlist' });
+      return res.status(400).json({ error: 'Content already in watchlist' });
     }
 
     // Add to watchlist
     const { data, error } = await supabase
       .from('watchlist')
-      .insert([{ user_id: userId, movie_id }])
+      .insert([{ user_id: userId, content_id }])
       .select()
       .single();
 
@@ -68,7 +68,7 @@ export const removeFromWatchlist = async (req, res) => {
       .from('watchlist')
       .delete()
       .eq('user_id', userId)
-      .eq('movie_id', movieId);
+      .eq('content_id', movieId);
 
     if (error) {
       console.error('Remove from watchlist error:', error);
